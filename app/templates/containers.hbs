@@ -1,5 +1,14 @@
 <div class="page-header">
-	<h1>Conainers</h1>
+	<h1>Containers</h1>
 </div>
-<h3>Headline</h3>
-<p>Content</p>
+<p></p>
+<ul>
+{{#each itemController="container"}}
+	<li>
+		{{id}}, {{threadType}}, {{type}}
+		<button {{action "removeVhost"}} type="button" class="btn btn-default btn-xs">
+			<span class="glyphicon glyphicon-remove"></span>
+		</button>
+	</li>
+{{/each}}
+</ul>
