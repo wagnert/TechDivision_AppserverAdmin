@@ -1,0 +1,49 @@
+<div class="row">
+  <div class="col-xs-6">
+	<h1><span class="glyphicon glyphicon-unchecked"></span> Manage Vhosts</h1>
+  </div>
+  <div class="col-xs-6">
+  	<div class="btn-group pull-right" style="margin-top:25px">
+  		<button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New</button>
+	</div>
+  </div>
+</div>
+
+<p></p>
+
+{{#each}}
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<div class="row">
+			<div class="col-xs-8">
+				<h3 class="panel-title">
+					<span class="glyphicon glyphicon-unchecked"></span> {{name}}
+					<span class="label label-default"><span class="glyphicon glyphicon-cloud"></span> {{appBase}}</span>
+				</h3>
+			</div>
+  			<div class="col-xs-4">
+  				<div class="pull-right">
+					<button type="button" class="btn btn-default btn-xs">
+						<span class="glyphicon glyphicon-edit"></span>
+					</button> <button type="button" class="btn btn-default btn-xs">
+						<span class="glyphicon glyphicon-remove"></span>
+					</button>
+				</div>
+  			</div>
+		</div>
+	</div>
+	
+	{{#if aliases.length}}
+		<ul class="list-group">
+        {{#each alias in aliases}}
+        	<li class="list-group-item">{{alias.name}}</li>
+		{{/each}}
+		</ul>
+	{{else}}
+		<div class="panel-body">
+			<i>No aliases defined.</i>
+		</div>
+	{{/if}}
+
+</div>
+{{/each}}
