@@ -1,6 +1,8 @@
 Appserver.Container = DS.Model.extend({
+   name: DS.attr('string'),
 	threadType: DS.attr('string'),
 	type: DS.attr('string'),
+   apps: DS.hasMany('Appserver.App')
 });
 
 /**

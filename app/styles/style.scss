@@ -5,3 +5,14 @@
 html, body {
     margin: 30px 0;
 }
+
+.as-items li {
+	float: left;
+	text-align: center;
+	border: 1px solid #ddd;
+	padding: 20px;
+}
+
+.as-items li:hover {
+	background-color: #e7e7e7;
+}

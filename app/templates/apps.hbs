@@ -1,10 +1,10 @@
 <div class="row">
   <div class="col-xs-6">
-	<h1><span class="glyphicon glyphicon-th"></span> Manage Containers</h1>
+	<h1><span class="glyphicon glyphicon-th"></span> Manage Apps</h1>
   </div>
   <div class="col-xs-6">
   	<div class="btn-group pull-right" style="margin-top:25px">
-  		<button type="button" class="btn btn-default">{{#linkTo containers.new}}<span class="glyphicon glyphicon-plus"></span> New{{/linkTo}}</button>
+  		<button type="button" class="btn btn-default">{{#linkTo apps.new}}<span class="glyphicon glyphicon-plus"></span> New{{/linkTo}}</button>
 	</div>
   </div>
 </div>
@@ -13,19 +13,19 @@
 
 {{outlet}}
 
-{{#each itemController="container"}}
+{{#each itemController="app"}}
 <div class="panel panel-default">
 	<div class="panel-heading">
 		<div class="row">
 			<div class="col-xs-8">
 				<h3 class="panel-title">
-					<span class="glyphicon glyphicon-th"></span> {{name}} 
-					{{#if apps.length}}
-					    {{#each app in apps}}
-					    	<span class="label label-default"><span class="glyphicon glyphicon-cloud"></span> {{app.name}}</span>&nbsp;
+					<span class="glyphicon glyphicon-cloud"></span> {{name}} <small>{{webappPath}} </small>
+					{{#if containers.length}}
+					    {{#each container in containers}}
+					    	<span class="label label-default"><span class="glyphicon glyphicon-tasks"></span> {{container.name}}</span>&nbsp;
 						{{/each}}
 					{{else}}
-							<small>No apps defined.</small>
+							<small>No containers defined.</small>
 					{{/if}}
 				</h3>
 			</div>
