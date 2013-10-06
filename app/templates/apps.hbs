@@ -1,12 +1,13 @@
 <div class="row">
-  <div class="col-xs-6">
-	<h1><span class="glyphicon glyphicon-th"></span> Manage Apps</h1>
-  </div>
-  <div class="col-xs-6">
-  	<div class="btn-group pull-right" style="margin-top:25px">
-  		<button type="button" class="btn btn-default">{{#linkTo apps.new}}<span class="glyphicon glyphicon-plus"></span> New{{/linkTo}}</button>
-	</div>
-  </div>
+    <div class="col-xs-6">
+        <h1><span class="glyphicon glyphicon-th"></span> Manage Apps</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="btn-group pull-right" style="margin-top:25px">
+            <button type="button" class="btn btn-default">{{#linkTo "apps.new"}}<span
+                    class="glyphicon glyphicon-plus"></span> New{{/linkTo}}</button>
+        </div>
+    </div>
 </div>
 
 <p></p>
@@ -14,32 +15,35 @@
 {{outlet}}
 
 {{#each itemController="app"}}
-<div class="panel panel-default">
-	<div class="panel-heading">
-		<div class="row">
-			<div class="col-xs-8">
-				<h3 class="panel-title">
-					<span class="glyphicon glyphicon-cloud"></span> {{name}} <small>{{webappPath}} </small>
-					{{#if containers.length}}
-					    {{#each container in containers}}
-					    	<span class="label label-default"><span class="glyphicon glyphicon-tasks"></span> {{container.name}}</span>&nbsp;
-						{{/each}}
-					{{else}}
-							<small>No containers defined.</small>
-					{{/if}}
-				</h3>
-			</div>
-  			<div class="col-xs-4">
-  				<div class="pull-right">
-					<button type="button" class="btn btn-default btn-xs">
-						<a {{bindAttr href="url"}} target="_blank"><span class="glyphicon glyphicon-play"></span></a>
-					</button>
-					<button type="button" class="btn btn-default btn-xs">
-						<span class="glyphicon glyphicon-remove"></span>
-					</button>
-				</div>
-  			</div>
-		</div>
-	</div>
-</div>
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-cloud"></span> {{name}}
+                        <small>{{webappPath}} </small>
+                        {{#if containers.length}}
+                            {{#each container in containers}}
+                                <span class="label label-default"><span
+                                        class="glyphicon glyphicon-tasks"></span> {{container.name}}</span>&nbsp;
+                            {{/each}}
+                        {{else}}
+                            <small>No containers defined.</small>
+                        {{/if}}
+                    </h3>
+                </div>
+                <div class="col-xs-4">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default btn-xs">
+                            <a {{bindAttr href="url"}} target="_blank"><span
+                                    class="glyphicon glyphicon-play"></span></a>
+                        </button>
+                        <button type="button" class="btn btn-default btn-xs">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 {{/each}}

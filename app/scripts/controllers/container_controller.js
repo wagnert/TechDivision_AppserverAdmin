@@ -1,6 +1,6 @@
 Appserver.ContainerController = Ember.ObjectController.extend({
 
-    removeVhost : function() {
+    removeVhost: function () {
         var container = this.get('model');
         container.deleteRecord();
         container.save();

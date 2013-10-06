@@ -1,0 +1,58 @@
+<div class="row">
+    <div class="col-xs-6">
+        <h1>{{view.headline}}</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="btn-group pull-right" style="margin-top:25px">
+            <button type="button" class="btn btn-default"><span class="glyphicon glyphicon-plus"></span> New</button>
+        </div>
+    </div>
+</div>
+
+<p></p>
+
+{{#each}}
+    <div class="panel-group" id="accordion-{{unbound model.id}}">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <h4 class="panel-title">
+                            <a class="accordion-toggle" data-toggle="collapse"
+                               data-parent="#accordion-{{unbound model.id}}" href="#collapse-{{unbound model.id}}">
+                                <span id="collapse-icon-{{unbound model.id}}"
+                                      class="glyphicon glyphicon-chevron-right"></span> {{widgetTitle}}
+                            </a>
+                            <small>{{widgetDescription}}</small>
+                        </h4>
+                    </div>
+                    <div class="col-xs-4">
+                        <div class="pull-right">
+                            <button {{action "edit" target="controller"}} type="button" class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                            <button {{action "remove" target="controller"}} type="button"
+                                                                            class="btn btn-default btn-xs">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div id="collapse-{{unbound model.id}}" class="panel-collapse collapse">
+                <div class="panel-body">
+                    No aliased defined
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $('#collapse-{{unbound model.id}}').on('hide.bs.collapse show.bs.collapse', function () {
+            $('#collapse-icon-{{unbound model.id}}').toggleClass('glyphicon-chevron-right glyphicon-chevron-down', 200);
+        });
+    </script>
+
+{{/each}}
+

@@ -1,0 +1,36 @@
+<div class="panel panel-default">
+
+    <div class="panel-heading">
+        <div class="row">
+            <div class="col-xs-8">
+                <h3 class="panel-title">
+                    <span class="glyphicon glyphicon-{{unbound view.icon}}"></span> {{view.title}}
+                </h3>
+            </div>
+            <div class="col-xs-4">
+                <div class="pull-right">
+                    <button {{action "editVhost" target="controller"}} type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button {{action "removeVhost" target="controller"}} type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{#if model.aliases.length}}
+        <ul class="list-group">
+            {{#each alias in aliases}}
+                <li class="list-group-item">{{alias.name}}</li>
+            {{/each}}
+        </ul>
+    {{else}}
+        <div class="panel-body">
+            <i>Nothing defined.</i>
+        </div>
+    {{/if}}
+
+
+</div>

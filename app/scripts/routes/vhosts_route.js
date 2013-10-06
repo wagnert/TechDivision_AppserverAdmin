@@ -1,5 +1,7 @@
 Appserver.VhostsRoute = Ember.Route.extend({
-  model: function () {
-    return Appserver.Vhost.find();
-  }
+
+    model: function () {
+        return Appserver.Vhost.find();
+    }
+
 });

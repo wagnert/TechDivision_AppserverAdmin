@@ -1,5 +1,5 @@
 Appserver.ContainersRoute = Ember.Route.extend({
-  model: function () {
-    return Appserver.Container.find();
-  }
+    model: function () {
+        return Appserver.Container.find();
+    }
 });

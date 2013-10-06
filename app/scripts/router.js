@@ -1,17 +1,19 @@
 Appserver.Router.map(function () {
 
-  this.resource('dashboard');
+    this.resource('dashboard');
 
-  this.resource('apps', function() {
-    this.route('new');
-  });
+    this.resource('apps', function () {
+        this.route('new');
+    });
 
-  this.resource('vhosts');
+    this.resource('vhosts', function () {
+        this.route('new');
+    });
 
-  this.resource('containers', function() {
-    this.route('new');
-  });
+    this.resource('containers', function () {
+        this.route('new');
+    });
 
-  this.resource('logs');
+    this.resource('logs');
 
 });
