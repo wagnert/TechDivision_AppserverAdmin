@@ -4,6 +4,7 @@
   "dependencies": {
     "ember": "~1.0.0",
     "ember-data-shim": "*",
+    "ember-table-shim": "*",
     "jquery": "~1.9.1",
     "bootstrap-sass": "~3.0.0",
     "dropzone": "~3.7.1"

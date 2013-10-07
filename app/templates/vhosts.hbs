@@ -1,4 +1,55 @@
-{{view Appserver.WidgetGridView
-headline = "Manage Vhosts"
-titleBinding = "name"
-}}
+<div class="row">
+    <div class="col-xs-6">
+        <h1>Manage Vhosts</h1>
+    </div>
+    <div class="col-xs-6">
+        <div class="btn-group pull-right" style="margin-top:25px">
+            <span class="glyphicon glyphicon-plus"></span>
+            {{input type="text" id="new-vhost" placeholder="www.yourdomain.tld" value=newName action="create"}}
+        </div>
+    </div>
+</div>
+
+<br>
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>App</th>
+            <th style="text-align: right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each}}
+        <tr>
+            <td width="1%">{{id}}</td>
+            <td>
+                {{#if isEditing}}
+                    {{input class="edit" value=name focus-out="acceptChanges" insert-newline="acceptChanges"}}
+                {{else}}
+                    {{name}}
+                {{/if}}
+            </td>
+            <td>
+                {{app.name}}
+            </td>
+            <td>
+                <div class="pull-right">
+                    <button {{action "edit"}} type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button {{action "remove"}} type="button"
+                                                class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
+
+
+

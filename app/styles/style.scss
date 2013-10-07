@@ -2,7 +2,6 @@
 @import "../bower_components/dropzone/downloads/css/dropzone.css";
 @import "bootstrap-sass/lib/bootstrap";
 
-
 /* custom styles */
 html, body {
   margin: 30px 0;
@@ -24,4 +23,8 @@ html, body {
 
 .as-items li:hover {
   background-color: #e7e7e7;
+}
+
+.app-overview {
+  padding: 15px;
 }

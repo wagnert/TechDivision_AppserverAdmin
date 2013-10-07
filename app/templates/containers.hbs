@@ -1,47 +1,53 @@
 <div class="row">
     <div class="col-xs-6">
-        <h1><span class="glyphicon glyphicon-th"></span> Manage Containers</h1>
+        <h1>Manage Containers</h1>
     </div>
     <div class="col-xs-6">
         <div class="btn-group pull-right" style="margin-top:25px">
-            <button type="button" class="btn btn-default">{{#linkTo containers.new}}<span
-                    class="glyphicon glyphicon-plus"></span> New{{/linkTo}}</button>
+            <span class="glyphicon glyphicon-plus"></span>
+            {{input type="text" id="new-vhost" placeholder="YourContainer" value=newName action="create"}}
         </div>
     </div>
 </div>
 
-<p></p>
+<br>
 
-{{outlet}}
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Thread Type</th>
+            <th style="text-align: right">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {{#each}}
+        <tr>
+            <td width="1%">{{id}}</td>
+            <td>
+                {{#if isEditing}}
+                    {{input class="edit" value=name focus-out="acceptChanges" insert-newline="acceptChanges"}}
+                {{else}}
+                    {{name}}
+                {{/if}}
+            </td>
+            <td>{{threadType}}</td>
+            <td>
+                <div class="pull-right">
+                    <button {{action "edit"}} type="button" class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-edit"></span>
+                    </button>
+                    <button {{action "remove"}} type="button"
+                                                class="btn btn-default btn-xs">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </div>
+            </td>
+        </tr>
+    {{/each}}
+    </tbody>
+</table>
 
-{{#each itemController="container"}}
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <div class="row">
-                <div class="col-xs-8">
-                    <h3 class="panel-title">
-                        <span class="glyphicon glyphicon-th"></span> {{name}}
-                        {{#if apps.length}}
-                            {{#each app in apps}}
-                                <span class="label label-default"><span
-                                        class="glyphicon glyphicon-cloud"></span> {{app.name}}</span>&nbsp;
-                            {{/each}}
-                        {{else}}
-                            <small>No apps defined.</small>
-                        {{/if}}
-                    </h3>
-                </div>
-                <div class="col-xs-4">
-                    <div class="pull-right">
-                        <button type="button" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-edit"></span>
-                        </button>
-                        <button type="button" class="btn btn-default btn-xs">
-                            <span class="glyphicon glyphicon-remove"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-{{/each}}
+
+
