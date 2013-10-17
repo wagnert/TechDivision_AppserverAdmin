@@ -8,3 +8,6 @@ require('scripts/routes/*');
 require('scripts/views/widgets/*');
 require('scripts/views/*');
 require('scripts/router');
+
+/* Disable auto discover dropzone */
+Dropzone.autoDiscover = false;

@@ -1,4 +1,7 @@
 Appserver.VhostsController = Ember.ArrayController.extend({
+
+    needs: ['apps'],
+
     itemController: 'vhost',
 
     actions: {
