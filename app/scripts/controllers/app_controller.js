@@ -1,7 +1,13 @@
+/**
+ * A controller for app functionality
+ *
+ * @class Appserver.AppController
+ * @extends Appserver.AbstractController
+ */
 Appserver.AppController = Appserver.AbstractController.extend({
 
     url: function () {
-        return "http://localhost:8586/" + this.get('name');
+        return Appserver.apiUrl + '/' + this.get('name');
     }.property()
 
 });

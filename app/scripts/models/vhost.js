@@ -1,25 +1,48 @@
+/**
+ * The vhost model definition
+ *
+ * @class Appserver.Vhost
+ * @extends DS.Model
+ */
 Appserver.Vhost = DS.Model.extend({
-    icon: 'cloud',
+
+    /**
+     * Defines property name
+     *
+     * @property name
+     * @type {Object}
+     */
     name: DS.attr('string'),
-    app: DS.belongsTo('Appserver.App'),
-    aliases: DS.belongsTo('Appserver.Vhostalias')
+
+    /**
+     * Defines property appBase
+     *
+     * @property appBase
+     * @type {Object}
+     */
+    appBase: DS.attr('string')
 });
 
+/**
+ * Fixtures for testing purpose
+ *
+ * @property FIXTURES
+ * @type {Array}
+ */
 Appserver.Vhost.FIXTURES = [
     {
         id: 1,
         name: 'appserver.io',
-        aliases: 2,
-        app: 1
+        appBase: '/site'
     },
     {
         id: 2,
         name: 'neos.appserver.io',
-        app: 2
+        appBase: '/neos'
     },
     {
         id: 3,
         name: 'admin.appserver.io',
-        app: 3
+        appBase: '/admin'
     }
 ];
