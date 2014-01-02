@@ -39,10 +39,15 @@
     </target>
 
     <!-- ==================================================================== -->
-    <!-- Shim the app     					  								  -->
+    <!-- Shim the app by using Grunt and copy the web app sources       	  -->
     <!-- ==================================================================== -->
-	<target name="shim-it" depends="copy" description="Shim the app.">
+	<target name="shim-it" depends="copy" description="Shim the app by using Grunt and copy the web app sources.">
 		<exec executable="grunt"/>
+		<move todir="${php-target.dir}/${webapp.name}">
+			<fileset dir="${php-target.dir}/${webapp.name}">
+				<include name="**/*"/>
+			</fileset>
+		</move>
 	</target>
 
     <!-- ==================================================================== -->
@@ -54,7 +59,6 @@
                 <include name="**/*"/>
             </fileset>
         </copy>
-
     </target>
 
     <!-- ==================================================================== -->

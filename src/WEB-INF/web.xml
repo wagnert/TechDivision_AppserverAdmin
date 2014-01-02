@@ -15,19 +15,6 @@
         <servlet-name>StaticResourceServlet</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
-    
-	<!--
-    <security>
-        <url-pattern>/</url-pattern>
-        <auth>
-            <auth_type>Basic</auth_type>
-            <realm>Admin Login</realm>
-            <adapter_type>htpasswd</adapter_type>
-            <options>
-                <file>passwd</file>
-            </options>
-        </auth>
-    </security>
 	
 	<security>
         <url-pattern>/*</url-pattern>
@@ -40,6 +27,5 @@
             </options>
         </auth>
     </security>
-    -->
       
 </web-app>
