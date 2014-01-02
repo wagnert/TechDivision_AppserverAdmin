@@ -65,8 +65,8 @@
     <!-- Creates a PHAR file for deployment     					  		  -->
     <!-- ==================================================================== -->
 	<target name="create-phar" depends="shim-it" description="Creates a PHAR file for deployment.">
-		<exec executable="phar-build">
-			<arg line="--ns --src=${php-target.dir}/${webapp.name} --phar=${php-target.dir}/${webapp.name}.phar"/>
+		<exec executable="phar">
+			<arg line="pack -l 0 -f ${php-target.dir}/${webapp.name}.phar ${php-target.dir}/${webapp.name}"/>
 		</exec>
 	</target>
 	
