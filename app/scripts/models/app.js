@@ -1,47 +1,57 @@
+/**
+ * The app model definition
+ *
+ * @class Appserver.App
+ * @extends DS.Model
+ */
 Appserver.App = DS.Model.extend({
+
+    /**
+     * Defines property name
+     *
+     * @property name
+     * @type {Object}
+     */
     name: DS.attr('string'),
-    thumbnail: DS.attr('string'),
-    webappPath: DS.attr('string'),
-    containers: DS.hasMany('Appserver.Container')
+
+    /**
+     * Defines property thumbnail
+     *
+     * @property thumbnail
+     * @type {Object}
+     */
+    thumbnail: DS.attr('string')
 });
 
+/**
+ * Fixtures for testing purpose
+ *
+ * @property FIXTURES
+ * @type {Array}
+ */
 Appserver.App.FIXTURES = [
     {
-        id: 1,
-        name: 'admin',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2, 3]
+        id: '/admin',
+        name: 'admin'
     },
     {
-        id: 2,
-        name: 'demo',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2, 3]
+        id: '/demo',
+        name: 'demo'
     },
     {
-        id: 3,
-        name: 'testing',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2, 3]
+        id: '/testing',
+        name: 'testing'
     },
     {
-        id: 4,
-        name: 'example',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2, 3]
+        id: '/example',
+        name: 'example'
     },
     {
-        id: 5,
-        name: 'neos',
-        thumbnail: 'images/app-thumbnail-neos.png',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2]
+        id: '/neos',
+        name: 'neos'
     },
     {
-        id: 6,
-        name: 'magento',
-        thumbnail: 'images/app-thumbnail-magento.png',
-        webappPath: '/opt/appserver/webapps',
-        containers: [1, 2]
+        id: '/magento',
+        name: 'magento'
     }
 ];

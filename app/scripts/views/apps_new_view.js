@@ -1,15 +1,22 @@
+/**
+ * The view for upload / add new apps using dropzone
+ *
+ * @class Appserver.AppsNewView
+ * @extends Ember.View
+ */
 Appserver.AppsNewView = Ember.View.extend({
 
     /**
-     * Initialize javascript elements after view is rendered
+     * Initialises the dropzone when ember rendering is finished
      *
-     * @return void
+     * @method didInsertElement
+     * @return {Object}
      */
     didInsertElement: function() {
-        new Dropzone("div#upload", {
-            url: "http://192.168.1.8:8586/api/apps/upload",
-            dictDefaultMessage: "Drop your app here to upload",
+        Ember.$("div#upload").dropzone({
+            url: "/api/apps/upload",
             init: function () {
+                // reinit App collection after new app was uploaded
                 this.on("complete", function (file) {
                     setTimeout(function () {
                         Appserver.App.find();

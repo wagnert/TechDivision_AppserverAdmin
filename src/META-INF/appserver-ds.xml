@@ -1,0 +1,11 @@
+<datasources>
+    <datasource name="TechDivision\Example" type="TechDivision\PersistenceContainer\Application">
+        <database>
+            <driver>pdo_sqlite</driver>
+            <user>appserver</user>
+            <password>appserver</password>
+            <path>META-INF/data/appserver_ApplicationServer.sqlite</path>
+            <memory>false</memory>
+        </database>
+    </datasource>
+</datasources>

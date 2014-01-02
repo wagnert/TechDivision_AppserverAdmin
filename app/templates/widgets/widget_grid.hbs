@@ -15,7 +15,7 @@
     <tbody>
     {{#each}}
         <tr>
-            <td width="1%">{{model.id}}</td>
+            <td nowrap="nowrap">{{model.id}}</td>
             <td>
                 {{#if isEditing}}
                     {{input class="edit" value=name focus-out="acceptChanges" insert-newline="acceptChanges"}}
@@ -24,7 +24,7 @@
                 {{/if}}
             </td>
             <td>{{widgetDescription}}</td>
-            <td>
+            <td width="1%">
                 <div class="pull-right">
                     <button {{action "edit"}} type="button" class="btn btn-default btn-xs">
                         <span class="glyphicon glyphicon-edit"></span>

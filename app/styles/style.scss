@@ -1,5 +1,5 @@
 @import "variables";
-@import "../bower_components/dropzone/downloads/css/dropzone.css";
+@import "dropzone";
 @import "bootstrap-sass/lib/bootstrap";
 
 /* custom styles */
@@ -8,7 +8,7 @@ html, body {
 }
 
 .navbar-brand {
-  background: url(../images/logo.png) no-repeat 15px 7px;
+  background: url(../static-images/logo.png) no-repeat 15px 7px;
   height: 42px;
   padding-left: 55px;
   color: #fff !important;

@@ -1,3 +1,9 @@
+/**
+ * The main router class
+ *
+ * @class Appserver.Router
+ * @constructor
+ */
 Appserver.Router.map(function () {
 
     this.resource('dashboard');
@@ -15,5 +21,4 @@ Appserver.Router.map(function () {
     });
 
     this.resource('logs');
-
 });

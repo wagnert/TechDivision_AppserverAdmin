@@ -1,13 +1,31 @@
+/**
+ * The main store class
+ *
+ * @class Appserver.Store
+ * @extends DS.Store
+ */
 Appserver.Store = DS.Store.extend({
 
-    /*
-     adapter: DS.RESTAdapter.create({
-     host: 'http://192.168.1.8:8586',
-     url: 'http://192.168.1.8:8586',
-     namespace: 'api'
-     })
+    /**
+     * Defines the RESTAdapter as main adapter
+     *
+     * @property adapter
+     * @type {DS.RESTAdapter}
      */
+    adapter: DS.RESTAdapter.create({
+        url: Appserver.apiUrl,
+        host: Appserver.apiUrl,
+        namespace: 'api'
+    })
 
-    adapter: DS.FixtureAdapter.extend()
+    /**
+     * Defines the FixtureAdapter as main adapter
+     *
+     * You could uncomment this for testing reasons
+     *
+     * @property adapter
+     * @type {DS.FixtureAdapter}
+     */
+    //adapter: DS.FixtureAdapter.extend()
 
 });

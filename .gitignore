@@ -5,8 +5,10 @@
 /target
 /build.properties
 /instance-src
+/dist
 bower_components
 /node_modules
 /.tmp
 /.sass-cache
 /.idea
+/app/scripts/local.js

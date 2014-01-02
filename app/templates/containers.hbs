@@ -1,12 +1,14 @@
 <div class="row">
     <div class="col-xs-6">
-        <h1>Manage Containers</h1>
+        <h1>Show Containers</h1>
     </div>
     <div class="col-xs-6">
+        <!--
         <div class="btn-group pull-right" style="margin-top:25px">
             <span class="glyphicon glyphicon-plus"></span>
             {{input type="text" id="new-vhost" placeholder="YourContainer" value=newName action="create"}}
         </div>
+        -->
     </div>
 </div>
 
@@ -15,16 +17,15 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>#</th>
             <th>Name</th>
-            <th>Thread Type</th>
-            <th style="text-align: right">Actions</th>
+            <th>Socket</th>
+            <th>Workers</th>
+            <th>Id</th>
         </tr>
     </thead>
     <tbody>
     {{#each}}
         <tr>
-            <td width="1%">{{id}}</td>
             <td>
                 {{#if isEditing}}
                     {{input class="edit" value=name focus-out="acceptChanges" insert-newline="acceptChanges"}}
@@ -32,22 +33,14 @@
                     {{name}}
                 {{/if}}
             </td>
-            <td>{{threadType}}</td>
             <td>
-                <div class="pull-right">
-                    <button {{action "edit"}} type="button" class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-edit"></span>
-                    </button>
-                    <button {{action "remove"}} type="button"
-                                                class="btn btn-default btn-xs">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </div>
+                {{address}}:{{port}}
             </td>
+            <td>
+                {{workerNumber}}
+            </td>
+            <td width="1%" nowrap="nowrap"><small>{{id}}</small></td>
         </tr>
     {{/each}}
     </tbody>
 </table>
-
-
-

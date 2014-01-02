@@ -2,12 +2,12 @@
   "name": "appserver",
   "version": "0.1.0",
   "dependencies": {
-    "ember": "~1.0.0",
+    "ember": "*",
     "ember-data-shim": "*",
     "ember-table-shim": "*",
-    "jquery": "~1.9.1",
+    "jquery": "*",
     "bootstrap-sass": "~3.0.0",
-    "dropzone": "~3.7.1"
+    "dropzone": "*"
   },
   "devDependencies": {
     "ember-mocha-adapter": "0.1.1"

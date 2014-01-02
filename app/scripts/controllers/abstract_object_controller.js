@@ -1,3 +1,9 @@
+/**
+ * An abstract controller implementation
+ *
+ * @class Appserver.AbstractController
+ * @extends Ember.ObjectController
+ */
 Appserver.AbstractController = Ember.ObjectController.extend({
 
     isEditing: false,
