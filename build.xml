@@ -44,7 +44,7 @@
 	<target name="shim-it" depends="copy" description="Shim the app by using Grunt and copy the web app sources.">
 		<exec executable="grunt"/>
 		<move todir="${php-target.dir}/${webapp.name}">
-			<fileset dir="${php-target.dir}/${webapp.name}">
+			<fileset dir="${php-target.dir}/dist">
 				<include name="**/*"/>
 			</fileset>
 		</move>
