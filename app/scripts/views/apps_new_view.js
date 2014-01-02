@@ -1,3 +1,6 @@
+// init Dropzone object for grunt environment
+var Dropzone = {};
+
 Appserver.AppsNewView = Ember.View.extend({
 
     /**

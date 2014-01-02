@@ -1,3 +1,5 @@
+// init Dropzone object for grunt environment
+var Dropzone = {};
 var Appserver = window.Appserver = Ember.Application.create();
 
 /* Order and include as you please. */

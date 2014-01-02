@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.4">
+
+    <display-name>appserver.io admin interface</display-name>
+    <description>Webapp that provides the appserver.io admin interface based on ember.js</description>
+
+    <servlet>
+        <description><![CDATA[Returns the VHost configuration data]]></description>
+        <display-name>StaticResourceServlet</display-name>
+        <servlet-name>StaticResourceServlet</servlet-name>
+        <servlet-class>\TechDivision\ServletContainer\Servlets\StaticResourceServlet</servlet-class>
+    </servlet>
+    
+    <servlet-mapping>
+        <servlet-name>StaticResourceServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+    
+	<!--
+    <security>
+        <url-pattern>/</url-pattern>
+        <auth>
+            <auth_type>Basic</auth_type>
+            <realm>Admin Login</realm>
+            <adapter_type>htpasswd</adapter_type>
+            <options>
+                <file>passwd</file>
+            </options>
+        </auth>
+    </security>
+	
+	<security>
+        <url-pattern>/*</url-pattern>
+        <auth>
+            <auth_type>Basic</auth_type>
+            <realm>Admin Login</realm>
+            <adapter_type>htpasswd</adapter_type>
+            <options>
+                <file>passwd</file>
+            </options>
+        </auth>
+    </security>
+    -->
+      
+</web-app>

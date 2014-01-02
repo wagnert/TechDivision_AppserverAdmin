@@ -5,6 +5,7 @@
 /target
 /build.properties
 /instance-src
+/dist
 bower_components
 /node_modules
 /.tmp
