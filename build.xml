@@ -1,15 +1,12 @@
 <?xml version="1.0"?>
 <project name="TechDivision_AppserverAdmin" default="deploy" basedir=".">
+	
 	<property file="${basedir}/build.properties"/>
 	<property file="${basedir}/build.default.properties"/>
     <property file="${basedir}/build.${os.family}.properties"/>
 	
 	<property environment="env" />
 	
-	<property name="namespace" value="techdivision" />
-	<property name="module" value="servletcontainer"/>
-	<property name="codepool" value="vendor"/>
-	<property name="unique.name" value="${codepool}/${namespace}/${module}" />
 	<property name="php-src.dir" value="${basedir}/src" />
 	<property name="php-test.dir" value="${basedir}/tests" />
 	<property name="php-target.dir" value="${basedir}/target"/>
@@ -34,35 +31,39 @@
     <!-- Copies the sources to the target directory                           -->
     <!-- ==================================================================== -->
     <target name="copy" depends="prepare" description="Copies the sources to the target directory.">
-        <copy todir="${php-target.dir}/" preservelastmodified="true" overwrite="true">
+        <copy todir="${php-target.dir}/${webapp.name}" preservelastmodified="true" overwrite="true">
             <fileset dir="${php-src.dir}">
                 <include name="**/*" />
             </fileset>
         </copy>
     </target>
-	
-	<target name="build-app-shim" depends="copy">
+
+    <!-- ==================================================================== -->
+    <!-- Shim the app     					  								  -->
+    <!-- ==================================================================== -->
+	<target name="shim-it" depends="copy" description="Shim the app.">
 		<exec executable="grunt"/>
-	</target>
-	
-	<target name="build" depends="build-app-shim">
-		<move todir="${php-target.dir}">
-			<fileset dir="${basedir}/dist">
-				 <include name="**/*"/>
-			</fileset>
-		</move>
 	</target>
 
     <!-- ==================================================================== -->
     <!-- Copies the sources to the deploy directory     					  -->
     <!-- ==================================================================== -->
-    <target name="deploy" depends="build" description="Copies the sources to the deploy directory.">
+    <target name="deploy" depends="shim-it" description="Copies the sources to the deploy directory.">
         <copy todir="${deploy.dir}/${webapp.name}" preservelastmodified="true" overwrite="true">
-            <fileset dir="${php-target.dir}">
+            <fileset dir="${php-target.dir}/${webapp.name}">
                 <include name="**/*"/>
             </fileset>
         </copy>
 
     </target>
+
+    <!-- ==================================================================== -->
+    <!-- Creates a PHAR file for deployment     					  		  -->
+    <!-- ==================================================================== -->
+	<target name="create-phar" depends="shim-it" description="Creates a PHAR file for deployment.">
+		<exec executable="phar-build">
+			<arg line="--ns --src=${php-target.dir}/${webapp.name} --phar=${php-target.dir}/${webapp.name}.phar"/>
+		</exec>
+	</target>
 	
 </project>
