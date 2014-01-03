@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app version="2.4">
+
+    <display-name>Simple Web Socket Example</display-name>
+    <description>Simple Web Socket Example</description>
+
+    <handler>
+        <description><![CDATA[Handler to handle user entities.]]></description>
+        <display-name>LoggingHandler</display-name>
+        <handler-name>LoggingHandler</handler-name>
+        <handler-class>\TechDivision\AppserverAdmin\Handler\LoggingHandler</handler-class>
+    </handler>
+
+    <handler-mapping>
+        <handler-name>LoggingHandler</handler-name>
+        <url-pattern>/logging</url-pattern>
+    </handler-mapping>
+
+</web-app>
