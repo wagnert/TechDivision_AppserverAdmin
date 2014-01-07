@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<message-queues>
+    <message-queue type="\TechDivision\AppserverAdmin\MessageBeans\LoggingReceiver" directory="classes">
+        <destination>queue/logging</destination>
+    </message-queue>
+</message-queues>
