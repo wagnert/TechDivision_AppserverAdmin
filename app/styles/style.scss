@@ -28,3 +28,8 @@ html, body {
 .app-overview {
   padding: 15px;
 }
+
+#liveLogContent {
+  max-height: 450px;
+  overflow-y: scroll;
+}

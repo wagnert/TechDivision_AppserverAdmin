@@ -13,7 +13,16 @@ var Appserver = window.Appserver = Ember.Application.create({
      * @type {String}
      * @default ""
      */
-    apiUrl: ''
+    apiUrl: '',
+
+    /**
+     * Defines the url for websocket api
+     *
+     * @property apiUrl
+     * @type {String}
+     * @default ""
+     */
+    websocketUrl: 'ws://127.0.0.1:8589'
 
 });
 /* Disable auto discover on dropzone */
