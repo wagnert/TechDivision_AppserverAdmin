@@ -13,12 +13,15 @@ namespace TechDivision\AppserverAdmin\Handler;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-use TechDivision\PersistenceContainerClient\Context\Connection\Factory;
-use TechDivision\Example\Entities\Sample;
-use TechDivision\AppserverAdmin\Utilities\Tail;
+
+use TechDivision\MessageQueueClient\Messages\StringMessage;
+use TechDivision\MessageQueueClient\Queue;
+use TechDivision\MessageQueueClient\QueueConnectionFactory;
 
 /**
- *
+ * A Ratchet websocket handler that sends new log messages 
+ * over a websocket to the admin GUI.
+ * 
  * @package TechDivision\AppserverAdmin
  * @copyright Copyright (c) 2010 <info@techdivision.com> - TechDivision GmbH
  * @license http://opensource.org/licenses/osl-3.0.php
@@ -27,6 +30,20 @@ use TechDivision\AppserverAdmin\Utilities\Tail;
  */
 class LoggingHandler implements MessageComponentInterface
 {
+    
+    /**
+     * Path and name of the server's error log file.
+     * 
+     * @var unknown
+     */
+    const ERROR_LOG = '/opt/appserver/var/log/appserver-errors.log';
+    
+    /**
+     * Path and name of the server's access log file.
+     * 
+     * @var unknown
+     */
+    const ACCESS_LOG = '/opt/appserver/var/log/appserver-access.log';
 
     /**
      * The connected web socket clients.
@@ -48,13 +65,6 @@ class LoggingHandler implements MessageComponentInterface
      * @var \TechDivision\PersistenceContainerClient\Interfaces\Session
      */
     protected $session;
-    
-    /**
-     * The log tailer.
-     * 
-     * @var \TechDivision\AppserverAdmin\Utilities\Tail
-     */
-    protected $tail;
 
     /**
      * Initializes the message handler with the container.
@@ -67,26 +77,15 @@ class LoggingHandler implements MessageComponentInterface
         // initialize the object storage for the client connections
         $this->clients = new \SplObjectStorage();
         
-        // initialize the log tailer
-        $this->tail = new Tail('/tmp/testfile.json');
-        $this->tail->addFile('/opt/appserver/var/log/appserver-errors.log');
-        $this->tail->addFile('/opt/appserver/var/log/appserver-access.log');
+        // initialize the connection and the session
+        $queue = Queue::createQueue("queue/logging");
+        $connection = QueueConnectionFactory::createQueueConnection();
+        $session = $connection->createQueueSession();
+        $sender = $session->createSender($queue);
         
-        // callback when a new message has been written to the log file
-        $this->tail->listen(function ($filename, $chunk)
-        {
-            
-            // extract the log message
-            foreach (explode("\n", $chunk) as $text) {
-                $text = trim($text);
-                if (empty($text)) {
-                    continue;
-                }
-                
-                // callback message
-                $this->onLogMessage("$filename - $text" . PHP_EOL);
-            }
-        });
+        // send log file to publish messages for
+        $message = new StringMessage(self::ERROR_LOG);
+        $send = $sender->send($message, false);
     }
 
     /**
@@ -110,26 +109,15 @@ class LoggingHandler implements MessageComponentInterface
     }
 
     /**
-     * Sends the log messages to all registered clients.
-     * 
-     * @param string $message The log message to send
-     * @return void
-     */
-    public function onLogMessage($message)
-    {       
-        foreach ($this->clients as $client) {
-            $client->send(trim($message));
-        }
-    }
-
-    /**
      * (non-PHPdoc)
      *
      * @see \Ratchet\MessageInterface::onMessage()
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        // do nothing here;
+        foreach ($this->clients as $client) {
+            $client->send(trim($msg));
+        }
     }
 
     /**
