@@ -84,7 +84,7 @@ class LoggingHandler implements MessageComponentInterface
         $sender = $session->createSender($queue);
         
         // send log file to publish messages for
-        $message = new StringMessage(self::ERROR_LOG);
+        $message = new StringMessage(self::ACCESS_LOG);
         $send = $sender->send($message, false);
     }
 
@@ -116,7 +116,6 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
-        error_log("Now receiving: $msg");
         foreach ($this->clients as $client) {
             $client->send(trim($msg));
         }

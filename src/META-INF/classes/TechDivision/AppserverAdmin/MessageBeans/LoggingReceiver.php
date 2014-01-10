@@ -63,18 +63,18 @@ class LoggingReceiver extends AbstractReceiver
         // create the socket connection
         $client = new \Wrench\Client(self::LOGGING_WEBSOCKET, self::LOGGING_ORIGIN);
         $client->connect();
+            
+        // init file info object
+        $fileInfo = new \SplFileInfo($filename);
                 
         // init last size var
-        $lastSize = 0;
+        $lastSize = $fileInfo->getSize();
         
         // go into loop
         while (true) {
         
             // clear file info cache
             clearstatcache(false, $filename);
-            
-            // init file info object
-            $fileInfo = new \SplFileInfo($filename);
         
             // check if size is still the same
             if ($lastSize == $fileInfo->getSize()) {
@@ -95,11 +95,7 @@ class LoggingReceiver extends AbstractReceiver
                     
                     // read till new end of file
                     while ($line = $file->fgets()) {
-                        try {
-                            $sent = $client->sendData($line);
-                        } catch(\Exception $e) {
-                            error_log($e->__toString());
-                        }
+                        $client->sendData(trim($line));
                     }
                 }
                 
