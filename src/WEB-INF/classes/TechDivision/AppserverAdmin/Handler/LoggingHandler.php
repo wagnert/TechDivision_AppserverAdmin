@@ -13,9 +13,8 @@ namespace TechDivision\AppserverAdmin\Handler;
 
 use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
-
-use TechDivision\MessageQueueClient\Messages\StringMessage;
 use TechDivision\MessageQueueClient\Queue;
+use TechDivision\MessageQueueClient\Messages\StringMessage;
 use TechDivision\MessageQueueClient\QueueConnectionFactory;
 
 /**
@@ -65,6 +64,13 @@ class LoggingHandler implements MessageComponentInterface
      * @var \TechDivision\PersistenceContainerClient\Interfaces\Session
      */
     protected $session;
+    
+    /**
+     * Array that contains the last ten log entries.
+     * 
+     * @var array
+     */
+    protected $lastTenLines = array();
 
     /**
      * Initializes the message handler with the container.
@@ -84,7 +90,7 @@ class LoggingHandler implements MessageComponentInterface
         $sender = $session->createSender($queue);
         
         // send log file to publish messages for
-        $message = new StringMessage(self::ACCESS_LOG);
+        $message = new StringMessage(self::ERROR_LOG);
         $send = $sender->send($message, false);
     }
 
@@ -95,7 +101,11 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onOpen(ConnectionInterface $conn)
     {
+        // connect the client and send the last ten messages
         $this->clients->attach($conn, 0);
+        foreach ($this->lastTenLines as $msg) {
+            $conn->send(trim($msg));
+        }
     }
 
     /**
@@ -116,8 +126,20 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
+        
+        // stack the message
+        array_unshift($this->lastTenLines, trim($msg));
+        
+        // check if the stack has at least 11 elements
+        if (sizeof($this->lastTenLines) > 10) { // if yes, pop the last one
+            array_pop($this->lastTenLines);
+        }
+        
+        // send the message to all connected clients
         foreach ($this->clients as $client) {
-            $client->send(trim($msg));
+            if ($from != $client) { // don't return messages to sender
+                $client->send(trim($msg));
+            }
         }
     }
 
