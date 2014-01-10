@@ -34,6 +34,9 @@
                 <include name="**/*" />
             </fileset>
         </copy>
+        <exec executable="composer.phar" dir="${php-target.dir}/${webapp.name}/META-INF">
+            <arg line="update"/>
+        </exec>
     </target>
 
     <!-- ==================================================================== -->

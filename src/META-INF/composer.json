@@ -1,0 +1,13 @@
+{
+    "name": "techdivision/techdivision_appserveradmin",
+    "description": "The RESTful API for the ApplicationServer",
+    "require": {
+        "wrench/wrench": "*"
+    },
+    "authors": [
+        {
+            "name": "Tim Wagner",
+            "email": "tw@techdivision.com"
+        }
+    ]
+}

@@ -52,6 +52,9 @@ class LoggingReceiver extends AbstractReceiver
         // wait to seconds until WebSocket container has been started
         sleep(2);
         
+        // initialize composer autoloader
+        require $this->getContainer()->getWebappPath() . '/META-INF/vendor/autoload.php';
+        
         // connect to the local WebSocket
         $client = new \Wrench\Client(self::LOGGING_WEBSOCKET, self::LOGGING_ORIGIN);
         $client->connect();
