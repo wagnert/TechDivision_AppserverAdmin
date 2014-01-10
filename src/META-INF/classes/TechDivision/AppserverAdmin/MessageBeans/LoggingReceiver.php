@@ -49,30 +49,33 @@ class LoggingReceiver extends AbstractReceiver
     public function onMessage(Message $message, $sessionId)
     {
         
-        // wait to seconds until WebSocket container has been started
+        // wait to seconds to allow WS server beeing started
         sleep(2);
         
-        // initialize composer autoloader
-        require $this->getContainer()->getWebappPath() . '/META-INF/vendor/autoload.php';
+        // set the file to log, or created it if not already available
+        if (!file_exists($filename = $message->getMessage())) {
+            touch($filename);
+        }
         
-        // connect to the local WebSocket
+        // initialize composer autoloader
+        require __DIR__ . '/../../../../vendor/autoload.php';
+        
+        // create the socket connection
         $client = new \Wrench\Client(self::LOGGING_WEBSOCKET, self::LOGGING_ORIGIN);
         $client->connect();
-
-        // set the file to log
-        $filename = $message->getMessage();
-
+                
         // init last size var
         $lastSize = 0;
         
         // go into loop
         while (true) {
-            
+        
             // clear file info cache
             clearstatcache(false, $filename);
+            
             // init file info object
             $fileInfo = new \SplFileInfo($filename);
-            
+        
             // check if size is still the same
             if ($lastSize == $fileInfo->getSize()) {
                 // wait internally to avoid cpu load
@@ -80,19 +83,26 @@ class LoggingReceiver extends AbstractReceiver
                 // continue with next tick
                 continue;
             }
-            
+        
             // open file
             $file = $fileInfo->openFile();
-            
+        
             // check if file is readable and not locked
             if ($file->isReadable()) {
+                
                 // check if goto last size is possible
                 if ($file->fseek($lastSize) === 0) {
+                    
                     // read till new end of file
                     while ($line = $file->fgets()) {
-                        $client->sendData($line);
+                        try {
+                            $sent = $client->sendData($line);
+                        } catch(\Exception $e) {
+                            error_log($e->__toString());
+                        }
                     }
                 }
+                
                 // save current size to check for new content
                 $lastSize = $fileInfo->getSize();
             }

@@ -105,6 +105,7 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onClose(ConnectionInterface $conn)
     {
+        error_log("Now closing connection");
         $this->clients->detach($conn);
     }
 
@@ -115,6 +116,7 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onMessage(ConnectionInterface $from, $msg)
     {
+        error_log("Now receiving: $msg");
         foreach ($this->clients as $client) {
             $client->send(trim($msg));
         }
