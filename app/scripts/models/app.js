@@ -12,15 +12,7 @@ Appserver.App = DS.Model.extend({
      * @property name
      * @type {Object}
      */
-    name: DS.attr('string'),
-
-    /**
-     * Defines property thumbnail
-     *
-     * @property thumbnail
-     * @type {Object}
-     */
-    thumbnail: DS.attr('string')
+    name: DS.attr('string')
 });
 
 /**

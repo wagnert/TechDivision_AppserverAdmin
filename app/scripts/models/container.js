@@ -48,17 +48,23 @@ Appserver.Container = DS.Model.extend({
 Appserver.Container.FIXTURES = [
     {
         id: 1,
-        socket: '0.0.0.0:8586',
-        name: 'http'
+        address: '0.0.0.0',
+        name: 'http',
+        port: '8586',
+        workerNumber: '16'
     },
     {
         id: 2,
-        socket: '0.0.0.0:8587',
-        name: 'persistence'
+        address: '0.0.0.0',
+        name: 'persistence',
+        port: '8586',
+        workerNumber: '16'
     },
     {
         id: 3,
-        socket: '0.0.0.0:8588',
-        name: 'web-socket'
+        address: '0.0.0.0',
+        name: 'web-socket',
+        port: '8586',
+        workerNumber: '16'
     }
 ];
