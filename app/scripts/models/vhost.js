@@ -20,7 +20,31 @@ Appserver.Vhost = DS.Model.extend({
      * @property appBase
      * @type {Object}
      */
-    appBase: DS.attr('string')
+    appBase: DS.attr('string'),
+
+    /**
+     * Defines property containerName
+     *
+     * @property appBase
+     * @type {Object}
+     */
+    containerName: DS.attr('string'),
+
+    /**
+     * Defines property port
+     *
+     * @property appBase
+     * @type {Object}
+     */
+    port: DS.attr('string'),
+
+    /**
+     * Defines property address
+     *
+     * @property appBase
+     * @type {Object}
+     */
+    address: DS.attr('string')
 });
 
 /**
@@ -33,16 +57,25 @@ Appserver.Vhost.FIXTURES = [
     {
         id: 1,
         name: 'appserver.io',
-        appBase: '/site'
+        appBase: '/site',
+        containerName: '/http',
+        port: '8586',
+        address: '0.0.0.0'
     },
     {
         id: 2,
         name: 'neos.appserver.io',
-        appBase: '/neos'
+        appBase: '/neos',
+        containerName: '/http',
+        port: '8586',
+        address: '0.0.0.0'
     },
     {
         id: 3,
         name: 'admin.appserver.io',
-        appBase: '/admin'
+        appBase: '/admin',
+        containerName: '/http',
+        port: '8586',
+        address: '0.0.0.0'
     }
 ];

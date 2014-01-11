@@ -17,7 +17,9 @@
 <table class="table table-hover">
     <thead>
         <tr>
-            <th>Name</th>
+        	<th>Name</th>
+            <th>Container</th>
+            <th>IP/Port</th>
             <th>AppBase</th>
             <th>Id</th>
         </tr>
@@ -32,6 +34,8 @@
                     {{name}}
                 {{/if}}
             </td>
+            <td>{{containerName}}</td>
+            <td>{{address}}::{{port}}</td>
             <td>{{appBase}}</td>
             <td width="1%" nowrap="nowrap"><small>{{id}}</small></td>
         </tr>
