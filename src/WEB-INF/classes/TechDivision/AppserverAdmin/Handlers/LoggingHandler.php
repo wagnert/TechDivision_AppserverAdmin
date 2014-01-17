@@ -15,6 +15,7 @@ use Ratchet\ConnectionInterface;
 use TechDivision\MessageQueueClient\Queue;
 use TechDivision\MessageQueueClient\Messages\StringMessage;
 use TechDivision\MessageQueueClient\QueueConnectionFactory;
+use TechDivision\WebSocketContainer\Handlers\HandlerConfig;
 use TechDivision\WebSocketContainer\Handlers\AbstractHandler;
 
 /**
@@ -77,8 +78,11 @@ class LoggingHandler extends AbstractHandler
      *
      * @return void
      */
-    public function __construct()
+    public function init(HandlerConfig $config)
     {
+        
+        // call parent init() method
+        parent::init($config);
         
         // initialize the object storage for the client connections
         $this->clients = new \SplObjectStorage();
@@ -106,11 +110,11 @@ class LoggingHandler extends AbstractHandler
     public function onOpen(ConnectionInterface $conn)
     {
         // log the new connection
-        $this->getApplication()->getSystemLogger()->debug("New connection");
+        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("New connection");
         
         // connect the client and send the last ten messages
         $this->clients->attach($conn, 0);
-        sforeach ($this->lastTenLines as $msg) {
+        foreach ($this->lastTenLines as $msg) {
             $conn->send(trim($msg));
         }
     }
@@ -122,7 +126,7 @@ class LoggingHandler extends AbstractHandler
      */
     public function onClose(ConnectionInterface $conn)
     {
-        $this->getApplication()->getSystemLogger()->debug("Closing connection");
+        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("Closing connection");
         $this->clients->detach($conn);
     }
 
@@ -159,7 +163,7 @@ class LoggingHandler extends AbstractHandler
      */
     public function onError(ConnectionInterface $conn,\Exception $e)
     {
-        $this->getApplication()->getSystemLogger()->error($e->__toString());
+        $this->getApplication()->getInitialContext()->getSystemLogger()->error($e->__toString());
         $conn->close();
     }
 }
