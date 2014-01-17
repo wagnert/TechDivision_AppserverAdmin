@@ -1,7 +1,7 @@
 <?php
 
 /**
- * TechDivision\AppserverAdmin\Handler\LoggingHandler
+ * TechDivision\AppserverAdmin\Handlers\LoggingHandler
  *
  * NOTICE OF LICENSE
  *
@@ -9,13 +9,14 @@
  * that is available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
  */
-namespace TechDivision\AppserverAdmin\Handler;
+namespace TechDivision\AppserverAdmin\Handlers;
 
-use Ratchet\MessageComponentInterface;
 use Ratchet\ConnectionInterface;
 use TechDivision\MessageQueueClient\Queue;
 use TechDivision\MessageQueueClient\Messages\StringMessage;
 use TechDivision\MessageQueueClient\QueueConnectionFactory;
+use TechDivision\WebSocketContainer\Handlers\HandlerConfig;
+use TechDivision\WebSocketContainer\Handlers\AbstractHandler;
 
 /**
  * A Ratchet websocket handler that sends new log messages 
@@ -27,7 +28,7 @@ use TechDivision\MessageQueueClient\QueueConnectionFactory;
  *          Open Software License (OSL 3.0)
  * @author Tim Wagner <tw@techdivision.com>
  */
-class LoggingHandler implements MessageComponentInterface
+class LoggingHandler extends AbstractHandler
 {
     
     /**
@@ -35,14 +36,14 @@ class LoggingHandler implements MessageComponentInterface
      * 
      * @var unknown
      */
-    const ERROR_LOG = '/opt/appserver/var/log/appserver-errors.log';
+    const ERROR_LOG = 'appserver-errors.log';
     
     /**
      * Path and name of the server's access log file.
      * 
      * @var unknown
      */
-    const ACCESS_LOG = '/opt/appserver/var/log/appserver-access.log';
+    const ACCESS_LOG = 'appserver-access.log';
 
     /**
      * The connected web socket clients.
@@ -77,8 +78,11 @@ class LoggingHandler implements MessageComponentInterface
      *
      * @return void
      */
-    public function __construct()
+    public function init(HandlerConfig $config)
     {
+        
+        // call parent init() method
+        parent::init($config);
         
         // initialize the object storage for the client connections
         $this->clients = new \SplObjectStorage();
@@ -89,8 +93,12 @@ class LoggingHandler implements MessageComponentInterface
         $session = $connection->createQueueSession();
         $sender = $session->createSender($queue);
         
+        // create the log file path
+        $relativeLogFilePath = DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . self::ERROR_LOG;
+        $absoluteLogFilePath = $this->getApplication()->getBaseDirectory($relativeLogFilePath);
+        
         // send log file to publish messages for
-        $message = new StringMessage(self::ERROR_LOG);
+        $message = new StringMessage($absoluteLogFilePath);
         $send = $sender->send($message, false);
     }
 
@@ -101,6 +109,9 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onOpen(ConnectionInterface $conn)
     {
+        // log the new connection
+        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("New connection");
+        
         // connect the client and send the last ten messages
         $this->clients->attach($conn, 0);
         foreach ($this->lastTenLines as $msg) {
@@ -115,7 +126,7 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onClose(ConnectionInterface $conn)
     {
-        error_log("Now closing connection");
+        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("Closing connection");
         $this->clients->detach($conn);
     }
 
@@ -131,13 +142,15 @@ class LoggingHandler implements MessageComponentInterface
         array_unshift($this->lastTenLines, trim($msg));
         
         // check if the stack has at least 11 elements
-        if (sizeof($this->lastTenLines) > 10) { // if yes, pop the last one
+        if (sizeof($this->lastTenLines) > 10) {
+            // if yes, pop the last one
             array_pop($this->lastTenLines);
         }
         
         // send the message to all connected clients
         foreach ($this->clients as $client) {
-            if ($from != $client) { // don't return messages to sender
+            if ($from != $client) {
+                // don't return messages to sender
                 $client->send(trim($msg));
             }
         }
@@ -150,7 +163,7 @@ class LoggingHandler implements MessageComponentInterface
      */
     public function onError(ConnectionInterface $conn,\Exception $e)
     {
-        error_log($e->__toString());
+        $this->getApplication()->getInitialContext()->getSystemLogger()->error($e->__toString());
         $conn->close();
     }
 }
