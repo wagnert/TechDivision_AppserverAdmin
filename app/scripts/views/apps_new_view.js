@@ -18,6 +18,7 @@ Appserver.AppsNewView = Ember.View.extend({
             init: function () {
                 // reinit App collection after new app was uploaded
                 this.on("complete", function (file) {
+                    Appserver.GlobalMessages.add({message: 'the app is uploaded'}, 'success');
                     setTimeout(function () {
                         Appserver.App.find();
                     }, 2000);
