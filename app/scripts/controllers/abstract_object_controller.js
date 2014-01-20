@@ -11,16 +11,16 @@ Appserver.AbstractController = Ember.ObjectController.extend({
     actions: {
         edit: function () {
             this.set('isEditing', true);
+
         },
 
         acceptChanges: function () {
             this.set('isEditing', false);
             this.get('model').save();
         },
+
         remove: function () {
-            var model = this.get('model');
-            model.deleteRecord();
-            model.save();
+            Appserver.GlobalMessages.add({message: 'coming soon'});
         }
     }
 

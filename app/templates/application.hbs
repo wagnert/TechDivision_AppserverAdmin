@@ -22,6 +22,12 @@
         </div>
     </div>
     <div class="container">
+        <div id="globalMessages">
+            {{#each message}}
+                {{view Appserver.MessageView}}
+            {{/each}}
+        </div>
+
         {{outlet}}
     </div>
 </div>
