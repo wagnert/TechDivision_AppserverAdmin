@@ -13,8 +13,6 @@ Appserver.LogsView = Ember.View.extend({
      * @return {Object}
      */
     didInsertElement: function () {
-
-
         // init websocket connection
         var logWebsocket = new WebSocket(
             Appserver.websocketUrl + '/admin/logging'
@@ -25,9 +23,6 @@ Appserver.LogsView = Ember.View.extend({
                 evt.data + "</br>"
             );
         };
-
-
-
     }
 
 });
