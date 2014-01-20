@@ -1,0 +1,7 @@
+<div id="message-{{unbound id}}" class="alert alert-dismissable alert-{{unbound type}}">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+    {{text}}&nbsp;
+    {{#if transitionLink}}
+        {{#linkTo transitionLink class="btn btn-default"}}{{transitionLinkText}}{{/linkTo}}
+    {{/if}}
+</div>
