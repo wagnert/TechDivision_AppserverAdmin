@@ -13,5 +13,13 @@ Appserver.AppsController = Ember.ArrayController.extend({
      * @type {String}
      * @default "app"
      */
-    itemController: 'app'
+    itemController: 'app',
+
+    actions: {
+
+        openApplicationNew: function () {
+            this.transitionToRoute("apps.new");
+        }
+
+    }
 });
