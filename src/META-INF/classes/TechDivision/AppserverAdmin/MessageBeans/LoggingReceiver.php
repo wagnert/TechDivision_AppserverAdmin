@@ -84,8 +84,8 @@ class LoggingReceiver extends AbstractReceiver
         
             // check if size is still the same
             if ($lastSize == $fileInfo->getSize()) {
-                // wait internally to avoid cpu load
-                usleep(1000);
+                // sleep for 0.1 seconds to lower system load
+                usleep(100000);
                 // continue with next tick
                 continue;
             }
