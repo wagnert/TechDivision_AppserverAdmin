@@ -20,7 +20,9 @@ Appserver.AbstractController = Ember.ObjectController.extend({
         },
 
         remove: function () {
-            Appserver.GlobalMessages.add({message: 'This feature is coming soon'});
+            var model = this.get('model');
+            model.deleteRecord();
+            model.save();
         }
     }
 
