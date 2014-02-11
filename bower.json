@@ -3,13 +3,13 @@
   "version": "0.1.0",
   "dependencies": {
     "ember": "*",
-    "ember-data-shim": "*",
-    "ember-table-shim": "*",
+    "ember-data": "*",
     "jquery": "*",
+    "handlebars": "~1.2.1",
     "bootstrap-sass": "~3.0.0",
     "dropzone": "*"
   },
   "devDependencies": {
-    "ember-mocha-adapter": "0.1.1"
+    "ember-mocha-adapter": "*"
   }
 }

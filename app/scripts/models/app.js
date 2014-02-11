@@ -15,6 +15,7 @@ Appserver.App = DS.Model.extend({
     name: DS.attr('string')
 });
 
+
 /**
  * Fixtures for testing purpose
  *
