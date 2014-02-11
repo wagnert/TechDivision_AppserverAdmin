@@ -1,10 +1,12 @@
+require('scripts/routes/model_route');
+
 /**
  * The route for managing vhosts
  *
  * @class Appserver.VhostsRoute
  * @extends Ember.Route
  */
-Appserver.VhostsRoute = Ember.Route.extend({
+Appserver.VhostsRoute = Appserver.ModelRoute.extend({
 
     /**
      * Initialises the model

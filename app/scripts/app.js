@@ -39,9 +39,9 @@ Dropzone.autoDiscover = false;
 require('scripts/local');
 // require all needed stuff
 require('scripts/objects/*');
-require('scripts/controllers/*');
 require('scripts/store');
 require('scripts/models/*');
+require('scripts/controllers/*');
 require('scripts/routes/*');
 require('scripts/views/widgets/*');
 require('scripts/views/*');
