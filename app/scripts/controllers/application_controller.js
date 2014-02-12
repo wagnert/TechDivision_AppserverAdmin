@@ -1,5 +1,8 @@
+/**
+ * The application controller
+ *
+ * @class Appserver.ApplicationController
+ * @extends Ember.Controller
+ */
 Appserver.ApplicationController = Ember.Controller.extend({
-    message: function () {
-        return Appserver.Message.find();
-    }.property('message')
 });

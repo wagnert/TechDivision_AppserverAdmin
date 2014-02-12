@@ -22,7 +22,7 @@ var Appserver = window.Appserver = Ember.Application.create({
      * @type {String}
      * @default ""
      */
-    websocketUrl: 'ws://127.0.0.1:8589'
+    websocketUrl: 'ws://' + window.location.hostname + ':8589'
 
 });
 /* Disable auto discover on dropzone */
