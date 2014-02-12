@@ -9,13 +9,6 @@ require('scripts/routes/model_route');
 Appserver.AppsRoute = Appserver.ModelRoute.extend({
 
     /**
-     *
-     */
-    beforeModel: function() {
-        this.get('store').init();
-    },
-
-    /**
      * Initialises the model
      *
      * @method model
