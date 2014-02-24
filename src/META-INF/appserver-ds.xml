@@ -1,5 +1,5 @@
 <datasources>
-    <datasource name="TechDivision\Example" type="TechDivision\PersistenceContainer\Application">
+    <datasource name="TechDivision\AppserverAdmin" type="TechDivision\PersistenceContainer\Application">
         <database>
             <driver>pdo_sqlite</driver>
             <user>appserver</user>
