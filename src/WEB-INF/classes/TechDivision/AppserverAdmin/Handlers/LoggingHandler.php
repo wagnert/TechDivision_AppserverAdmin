@@ -8,6 +8,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ *
+ * @category   Appserver
+ * @package    TechDivision_AppserverAdmin
+ * @subpackage Handlers
+ * @author     Tim Wagner <tw@techdivision.com>
+ * @copyright  2014 TechDivision GmbH <info@techdivision.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link       http://www.appserver.io
  */
 namespace TechDivision\AppserverAdmin\Handlers;
 
@@ -22,11 +32,13 @@ use TechDivision\WebSocketContainer\Handlers\AbstractHandler;
  * A Ratchet websocket handler that sends new log messages 
  * over a websocket to the admin GUI.
  * 
- * @package TechDivision\AppserverAdmin
- * @copyright Copyright (c) 2010 <info@techdivision.com> - TechDivision GmbH
- * @license http://opensource.org/licenses/osl-3.0.php
- *          Open Software License (OSL 3.0)
- * @author Tim Wagner <tw@techdivision.com>
+ * @category   Appserver
+ * @package    TechDivision_AppserverAdmin
+ * @subpackage Handlers
+ * @author     Tim Wagner <tw@techdivision.com>
+ * @copyright  2014 TechDivision GmbH <info@techdivision.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link       http://www.appserver.io
  */
 class LoggingHandler extends AbstractHandler
 {
@@ -34,14 +46,14 @@ class LoggingHandler extends AbstractHandler
     /**
      * Path and name of the server's error log file.
      * 
-     * @var unknown
+     * @var string
      */
     const ERROR_LOG = 'appserver-errors.log';
     
     /**
      * Path and name of the server's access log file.
      * 
-     * @var unknown
+     * @var string
      */
     const ACCESS_LOG = 'appserver-access.log';
 
@@ -76,6 +88,8 @@ class LoggingHandler extends AbstractHandler
     /**
      * Initializes the message handler with the container.
      *
+     * @param \echDivision\WebSocketContainer\Handlers\HandlerConfig $config The handler configuration
+     *
      * @return void
      */
     public function init(HandlerConfig $config)
@@ -103,8 +117,12 @@ class LoggingHandler extends AbstractHandler
     }
 
     /**
-     * (non-PHPdoc)
-     *
+     * This method will be invoked when a new client has to be connected
+     * and attaches the client to the handler.
+     * 
+     * @param \Ratchet\ConnectionInterface $conn The ratchet connection instance
+     * 
+     * @return void
      * @see \Ratchet\ComponentInterface::onOpen()
      */
     public function onOpen(ConnectionInterface $conn)
@@ -120,8 +138,11 @@ class LoggingHandler extends AbstractHandler
     }
 
     /**
-     * (non-PHPdoc)
-     *
+     * This method will be invoked when the client connection will be closed.
+     * 
+     * @param \Ratchet\ConnectionInterface $conn The ratchet connection instance
+     * 
+     * @return void
      * @see \Ratchet\ComponentInterface::onClose()
      */
     public function onClose(ConnectionInterface $conn)
@@ -131,8 +152,13 @@ class LoggingHandler extends AbstractHandler
     }
 
     /**
-     * (non-PHPdoc)
-     *
+     * This method will be invoked when a new message has to be send
+     * to the connected clients.
+     * 
+     * @param \Ratchet\ConnectionInterface $from The ratchet connection instance
+     * @param string                       $msg  The message to be send to all clients
+     * 
+     * @return void
      * @see \Ratchet\MessageInterface::onMessage()
      */
     public function onMessage(ConnectionInterface $from, $msg)
@@ -157,11 +183,16 @@ class LoggingHandler extends AbstractHandler
     }
 
     /**
-     * (non-PHPdoc)
-     *
+     * The method will be invoked when an error occures
+     * during client connection handling.
+     * 
+     * @param \Ratchet\ConnectionInterface $conn The ratchet connection instance
+     * @param \Exception                   $e    The exception that leads to the error
+     * 
+     * @return void
      * @see \Ratchet\ComponentInterface::onError()
      */
-    public function onError(ConnectionInterface $conn,\Exception $e)
+    public function onError(ConnectionInterface $conn, \Exception $e)
     {
         $this->getApplication()->getInitialContext()->getSystemLogger()->error($e->__toString());
         $conn->close();

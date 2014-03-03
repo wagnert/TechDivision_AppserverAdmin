@@ -8,6 +8,16 @@
  * This source file is subject to the Open Software License (OSL 3.0)
  * that is available through the world-wide-web at this URL:
  * http://opensource.org/licenses/osl-3.0.php
+ *
+ * PHP version 5
+ *
+ * @category   Appserver
+ * @package    TechDivision_AppserverAdmin
+ * @subpackage MessageBeans
+ * @author     Tim Wagner <tw@techdivision.com>
+ * @copyright  2014 TechDivision GmbH <info@techdivision.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link       http://www.appserver.io
  */
 namespace TechDivision\AppserverAdmin\MessageBeans;
 
@@ -17,12 +27,14 @@ use TechDivision\MessageQueueClient\Receiver\AbstractReceiver;
 /**
  * This is the implementation of a logging message receiver that
  * sends log entries a web socket.
- *
- * @package TechDivision\AppserverAdmin
- * @copyright Copyright (c) 2010 <info@techdivision.com> - TechDivision GmbH
- * @license http://opensource.org/licenses/osl-3.0.php
- *          Open Software License (OSL 3.0)
- * @author Tim Wagner <tw@techdivision.com>
+ * 
+ * @category   Appserver
+ * @package    TechDivision_AppserverAdmin
+ * @subpackage MessageBeans
+ * @author     Tim Wagner <tw@techdivision.com>
+ * @copyright  2014 TechDivision GmbH <info@techdivision.com>
+ * @license    http://opensource.org/licenses/osl-3.0.php Open Software License (OSL 3.0)
+ * @link       http://www.appserver.io
  */
 class LoggingReceiver extends AbstractReceiver
 {
@@ -42,8 +54,12 @@ class LoggingReceiver extends AbstractReceiver
     const LOGGING_ORIGIN = 'http://127.0.0.1:8587';
 
     /**
-     * (non-PHPdoc)
+     * Will be invoked when a new message for this message bean will be available.
+     * 
+     * @param \TechDivision\MessageQueueClient\Interfaces\Message $message   A message this message bean is listen for
+     * @param string                                              $sessionId The session ID                            
      *
+     * @return void
      * @see \TechDivision\MessageQueueClient\Interfaces\MessageReceiver::onMessage()
      */
     public function onMessage(Message $message, $sessionId)
