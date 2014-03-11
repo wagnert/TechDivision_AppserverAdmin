@@ -20,7 +20,7 @@ Appserver.AppsNewView = Ember.View.extend({
 
         // init dropzone.js
         Ember.$("div#upload").dropzone({
-            url: Appserver.apiUrl + "/api/apps/upload",
+            url: Appserver.apiUrl + "/api/apps.do/upload",
             acceptedFiles: ".phar,.PHAR",
             init: function () {
                 var _dropzone = this;
