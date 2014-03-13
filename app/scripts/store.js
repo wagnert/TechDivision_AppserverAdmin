@@ -12,10 +12,14 @@ Appserver.Store = DS.Store.extend({
      * @property adapter
      * @type {DS.RESTAdapter}
      */
-    adapter: DS.RESTAdapter.create({
+    adapter: DS.RESTAdapter.extend({
         url: Appserver.apiUrl,
         host: Appserver.apiUrl,
-        namespace: 'api'
+        namespace: 'api',
+        buildURL: function(record, suffix) {
+            var s = this._super(record, suffix);
+            return s + ".do";
+        }
     })
 
     /**
