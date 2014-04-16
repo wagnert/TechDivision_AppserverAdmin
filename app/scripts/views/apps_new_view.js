@@ -22,6 +22,7 @@ Appserver.AppsNewView = Ember.View.extend({
         Ember.$("div#upload").dropzone({
             url: Appserver.apiUrl + "/api/apps.do/upload",
             acceptedFiles: ".phar,.PHAR",
+            maxFilesize: 500,
             init: function () {
                 var _dropzone = this;
                 // do on success
