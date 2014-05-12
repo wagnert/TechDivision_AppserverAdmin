@@ -7,7 +7,7 @@
 Appserver.AppsNewView = Ember.View.extend({
 
     retries: 0,
-    maxRetries: 5,
+    maxRetries: 20,
 
     /**
      * Initialises the dropzone when ember rendering is finished
@@ -52,7 +52,7 @@ Appserver.AppsNewView = Ember.View.extend({
             // wait a little above 1 sec before checking appserver to be up
             var start = new Date().getTime();
             for (var i = 0; i < 1e7; i++) {
-                if ((new Date().getTime() - start) > 1234){
+                if ((new Date().getTime() - start) > 1512){
                     break;
                 }
             }
@@ -73,7 +73,7 @@ Appserver.AppsNewView = Ember.View.extend({
         // check if appserver is up
         Ember.$.ajax({
             type: 'GET',
-            url: Appserver.apiUrl,
+            url: Appserver.apiUrl + "/api/apps.do",
             async: false,
             error: function(jqXHR) {
                 // check if http status came back
