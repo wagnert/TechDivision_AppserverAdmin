@@ -25,8 +25,8 @@ use Ratchet\ConnectionInterface;
 use TechDivision\MessageQueueClient\MessageQueue;
 use TechDivision\MessageQueueClient\QueueConnectionFactory;
 use TechDivision\MessageQueueProtocol\Messages\StringMessage;
-use TechDivision\WebSocketContainer\Handlers\HandlerConfig;
-use TechDivision\WebSocketContainer\Handlers\AbstractHandler;
+use TechDivision\WebSocketProtocol\HandlerConfig;
+use TechDivision\WebSocketServer\Handlers\AbstractHandler;
 
 /**
  * A Ratchet websocket handler that sends new log messages
@@ -120,29 +120,27 @@ class LoggingHandler extends AbstractHandler
      */
     public function onOpen(ConnectionInterface $conn)
     {
-        // log the new connection
-        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("New connection");
 
         // check if the message to connect the logger has already been sent
-		if ($this->messageSent === false) {
+        if ($this->messageSent === false) {
 
-	        // initialize the connection and the session
-	        $queue = MessageQueue::createQueue("queue/logging");
-	        $connection = QueueConnectionFactory::createQueueConnection();
-	        $session = $connection->createQueueSession();
-	        $sender = $session->createSender($queue);
+            // initialize the connection and the session
+            $queue = MessageQueue::createQueue("queue/logging");
+            $connection = QueueConnectionFactory::createQueueConnection();
+            $session = $connection->createQueueSession();
+            $sender = $session->createSender($queue);
 
-	        // create the log file path
-	        $relativeLogFilePath = DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . self::ERROR_LOG;
-	        $absoluteLogFilePath = $this->getApplication()->getBaseDirectory($relativeLogFilePath);
+            // create the log file path
+            $relativeLogFilePath = DIRECTORY_SEPARATOR . 'var' . DIRECTORY_SEPARATOR . 'log' . DIRECTORY_SEPARATOR . self::ERROR_LOG;
+            $absoluteLogFilePath = $this->getRequest()->getContext()->getBaseDirectory($relativeLogFilePath);
 
-	        // send log file to publish messages for
-	        $message = new StringMessage($absoluteLogFilePath);
-	        $send = $sender->send($message, false);
+            // send log file to publish messages for
+            $message = new StringMessage($absoluteLogFilePath);
+            $send = $sender->send($message, false);
 
-	        // set the flag that the logger has been connected
-	        $this->messageSent = true;
-	    }
+            // set the flag that the logger has been connected
+            $this->messageSent = true;
+        }
 
         // connect the client and send the last ten messages
         $this->clients->attach($conn, 0);
@@ -161,7 +159,6 @@ class LoggingHandler extends AbstractHandler
      */
     public function onClose(ConnectionInterface $conn)
     {
-        $this->getApplication()->getInitialContext()->getSystemLogger()->debug("Closing connection");
         $this->clients->detach($conn);
     }
 
@@ -208,7 +205,6 @@ class LoggingHandler extends AbstractHandler
      */
     public function onError(ConnectionInterface $conn, \Exception $e)
     {
-        $this->getApplication()->getInitialContext()->getSystemLogger()->error($e->__toString());
         $conn->close();
     }
 }
