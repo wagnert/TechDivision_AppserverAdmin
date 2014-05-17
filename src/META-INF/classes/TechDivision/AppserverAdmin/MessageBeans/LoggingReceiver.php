@@ -84,11 +84,12 @@ class LoggingReceiver extends AbstractReceiver
 
         // init last size var
         $lastSize = $fileInfo->getSize();
-        if (($remainder = $lastSize - 10) > 10) {
-            $remainder = 10;
+        $remainder = $lastSize - 10000;
+        if ($remainder > 10000) {
+            $remainder = 10000;
         }
 
-        // start with the last 10 lines
+        // start with the last 1000 chars
         $lastSize =  $lastSize - $remainder;
 
         // go into loop
