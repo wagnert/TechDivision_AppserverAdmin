@@ -95,7 +95,7 @@ class LoggingHandler extends AbstractHandler
     /**
      * Initializes the message handler with the container.
      *
-     * @param \echDivision\WebSocketContainer\Handlers\HandlerConfig $config The handler configuration
+     * @param \TechDivision\WebSocketProtocol\HandlerConfig $config The handler configuration
      *
      * @return void
      */
